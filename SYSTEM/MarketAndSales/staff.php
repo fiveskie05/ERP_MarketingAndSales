@@ -39,7 +39,7 @@
 			<li class="active"><a href="staff.php"><em class="fa fa-desktop">&nbsp;</em> POS</a></li>
 			<li><a href="invoice.php"><em class="fa fa-table">&nbsp;</em> Invoice</a></li>
 			<li><a href="staff_recenttransaction.php"><em class="fa fa-history">&nbsp;</em>Recent Transaction</a></li>
-			<li><a href="loginstyle.php"><em class="fa fa-power-off">&nbsp;</em> Logout</a></li>
+			<li><a href="destroy.php"><em class="fa fa-power-off">&nbsp;</em> Logout</a></li>
 		</ul>
 	</div><!--/.sidebar-->
 		
@@ -63,7 +63,7 @@
 		<div class="panel panel-container">
 			<table class="table table-striped table-hover">
 				<tr style="background-color: #f5f5f5;">
-      				<th style="text-align: center;"><h2>Product Code</h2></th>
+      				<th style="text-align: center;"><h2>Product ID</h2></th>
       				<th style="text-align: center;"><h2>Products</h2></th>
 			      	<th style="text-align: center;"><h2>Amount</h2></th>
 			      	<th style="text-align: center;"><h2>Action</h2></th>
@@ -79,7 +79,7 @@
 			            while ($row = mysqli_fetch_array($result)) {
 			            $id = $row['ID'];
 			          ?>
-				      <td style="text-align: center;"><?php echo $row['Product_code']?></td>
+				      <td style="text-align: center;"><?php echo $row['ID']?></td>
 				      <td style="text-align: center;"><?php echo $row['Services']?></td>
 				      <td style="text-align: center;"><?php echo "Php ".$row['Amount'].".00"?></td>
 				      <td style="text-align: center;"><a href='add.php?id=<?php echo "$id";?>' name="add">Add</td>

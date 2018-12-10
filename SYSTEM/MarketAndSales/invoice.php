@@ -39,7 +39,7 @@
 			<li><a href="staff.php"><em class="fa fa-desktop">&nbsp;</em> POS</a></li>
 			<li  class="active"><a href="invoice.php"><em class="fa fa-table">&nbsp;</em> Invoice</a></li>
 			<li><a href="staff_recenttransaction.php"><em class="fa fa-history">&nbsp;</em>Recent Transaction</a></li>
-			<li><a href="loginstyle.php"><em class="fa fa-power-off">&nbsp;</em> Logout</a></li>
+			<li><a href="destroy.php"><em class="fa fa-power-off">&nbsp;</em> Logout</a></li>
 		</ul>
 	</div><!--/.sidebar-->
 		

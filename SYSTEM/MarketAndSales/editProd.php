@@ -1,5 +1,17 @@
 
 <?php include 'myfunctions.php'; ?>
+<?php 
+  $prod_id = $_GET['id'];
+  $db = mysqli_connect("localhost","root","","marketsales");
+
+  $query_fetch = "SELECT * from products_and_services where id='$prod_id'";
+  $result = mysqli_query($db,$query_fetch);
+
+  while ($row = mysqli_fetch_array($result)) {
+    $prodname = $row['Services'];
+    $prodprice = $row['Amount'];
+  }
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,8 +51,8 @@
 
 		<ul class="nav menu">
 			<li><a href="index.php"><em class="fa fa-dashboard">&nbsp;</em> Dashboard</a></li>
-			<li><a href="products.php"><em class="glyphicon glyphicon-glass">&nbsp;</em> Products</a></li>
-			<li class="active"><a href="manageusers.php"><em class="fa fa-users">&nbsp;</em> Employee</a></li>
+			<li class="active"><a href="products.php"><em class="glyphicon glyphicon-glass">&nbsp;</em> Products</a></li>
+			<li><a href="manageusers.php"><em class="fa fa-users">&nbsp;</em> Employee</a></li>
 			<li><a href="recenttransaction.php"><em class="fa fa-history">&nbsp;</em>Recent Transaction</a></li>
 			<li><a href="salesreport.php"><em class="fa fa-file-text-o">&nbsp;</em> Sales Report</a></li>
 			<li><a href="loginstyle.php"><em class="fa fa-power-off">&nbsp;</em> Logout</a></li>
@@ -60,96 +72,41 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<button class="btn btn-lg btn-info" style="float: right; margin-top: 3%" data-toggle="modal" data-target="#myModal">Add new</button>
-				<h1 class="page-header">Manage Employees</h1>
+				<h1 class="page-header">Product Info</h1>
 			</div>
 		</div><!--/.row-->
 
-		<!--Modal-->
-		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-		  <div class="modal-dialog" role="document">
-		    <div class="modal-content">
-		      <div class="modal-header">
-		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		        <h4 class="modal-title" id="myModalLabel">User Info</h4>
-		      </div> 
-		      <div class="modal-body">
-		<form method="post">
-			  <div style=" width: 80%; margin-left: 10%;">
-	      			<label><h3>First name :</label>
-	        			<input type="text" name="fname" style="width: 50%"></h3>
-	    			<label><h3>Last name :</label>
-	        			<input type="text" name="lname" style="width: 50%"></h3>
-	    			<label><h3>Age :</label>
-	        			<input type="number" max="50" min="18" name="age";></h3>
+		
 
-	    	      	<div>
-	      				<label><h3>Gender :</label><br>
-	      			  		&nbsp&nbsp&nbsp<input type="radio" name="gender" value="Male">&nbspMale<br>
-							&nbsp&nbsp&nbsp<input type="radio" name="gender" value="Female">&nbspFemale</h3>
-	   			  	
-	   			  		<label><h3>Position</label><br>
-	   			  			&nbsp&nbsp&nbsp<input type="radio" name="position" value="Staff">&nbspStaff
-	   			  			&nbsp&nbsp&nbsp<input type="radio" name="position" value="Admin">&nbspAdmin</h3>
-	   			  	</div>
+		<div class="panel panel-container">
+			<form method="post">
+			  <div style=" width: 80%; margin-left: 10%;">
+	      			<label><h3>Product name :</label>
+	        			<input type="text" name="pname" style="width: 50%" value="<?php echo $prodname ?>" disabled ></h3>
+	    			<label><h3>Price :</label>
+	        			<input type="number" min="18" name="price" value="<?php echo $prodprice ?>"></h3>
+
 	   			  	<button name="save" style="width:80%; margin-left: 5%;" class="btn btn-info btn-lg">Save</button>
+	   			  	<div>
+	   			  		<button style="float: right; margin-top: 20px;" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	   			  	</div>
 	      	  </div>
-	      	   	
-		</form>
-			<?php  
+
+	      	  <?php  
 				 $connection = mysqli_connect("localhost","root","","marketsales");
 			     $db_selected = mysqli_select_db($connection,"marketsales");
 				
 				if(isset($_POST['save'])){
-						$firstname=$_POST['fname'];
-						$lastname=$_POST['lname'];
-						$age=$_POST['age'];
-						$gender=$_POST['gender'];
-						$position=$_POST['position'];
+						$productname=$_POST['pname'];
+						$pprice=$_POST['price'];
 
-					$sql = "INSERT INTO users (First_name,Last_name,Age,Gender,Position,Username,Password) VALUES ('$firstname','$lastname','$age','$gender','$position','$firstname','$lastname')";
+					$sql = "UPDATE products_and_services SET Amount = '$pprice' where id = '$prod_id'";
 					mysqli_query($connection,$sql);
-					header("location:manageusers.php");
+					header("location:products.php");
 				}
 			?>
-		      </div>
-		      <div class="modal-footer">
-		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-		      </div>
-		    </div>
-		  </div>
-		</div>
-
-		<div class="panel panel-container">
-			<table class="table table-striped">
-				<tr>
-					<th><h3><b>No.</b></h3></th>
-    				<th><h3><b>Full name</b></h3></th>
-    				<th><h3><b>Age</b></h3></th>
-    				<th><h3><b>Gender</b></h3></th>
-    				<th><h3><b>Position</b></h3></th>
-    				<th><h3><b>Action</b></h3></th>
-				</tr>
-
-				<tr>
-					<?php
-						$link = connection();
-						$query = "select * from users";
-						$result = mysqli_query($link,$query) or die(mysqli_error($link));
-					?>
-					<?php
-						$n = 1;
-						while ($row = mysqli_fetch_array($result)) {
-						$id = $row['ID'];
-					?>
-					<td><?php echo $n ?></td>
-    				<td><?php echo $row['First_name']." ". $row['Last_name']?></td>
-    				<td><?php echo $row['Age']?></td>
-    				<td><?php echo $row['Gender']?></td>
-    				<td><?php echo $row['Position']?></td>
-    				<td><a href='deleteUSER.php?id=<?php echo "$id";?>'>Remove</a></td>
-				</tr>
-				<?php $n++; }?>	
-			</table>
+	      	   	
+		</form>
 		</div>
 		
 

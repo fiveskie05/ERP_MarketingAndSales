@@ -38,6 +38,7 @@
 			<div class="clear"></div>
 		<ul class="nav menu">
 			<li><a href="index.php"><em class="fa fa-dashboard">&nbsp;</em> Dashboard</a></li>
+			<li><a href="products.php"><em class="glyphicon glyphicon-glass">&nbsp;</em> Products</a></li>
 			<li><a href="manageusers.php"><em class="fa fa-users">&nbsp;</em> Employee</a></li>
 			<li class="active"><a href="recenttransaction.php"><em class="fa fa-history">&nbsp;</em>Recent Transaction</a></li>
 			<li><a href="salesreport.php"><em class="fa fa-file-text-o">&nbsp;</em> Sales Report</a></li>
