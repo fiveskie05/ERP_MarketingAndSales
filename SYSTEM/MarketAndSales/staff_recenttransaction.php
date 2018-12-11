@@ -63,10 +63,12 @@
 		<table class="table table-hover table-striped">
 			<tr>
 				<th style="text-align: center;"><h4>Date</h4></th>
+				<th style="text-align: center;"><h4>Time</h4></th>
 			    <th style="text-align: center;"><h4>Customer Name</h4></th>
 			    <th style="text-align: center;"><h4>Products Availed</h4></th>
-			    <th style="text-align: center;"><h4>No. of Person/s</h4></th>
+			    <th style="text-align: center;"><h4>Piece(s)</h4></th>
 			    <th style="text-align: center;"><h4>Total Price</h4></th>
+			    <th style="text-align: center;"><h4>Cashier</h4></th>
 			</tr>
 			<tr>
 				<?php include 'myfunctions.php'; 
@@ -82,10 +84,12 @@
 				 ?>
 
 				<td style="text-align: center;"><?php echo $row['r_date'];?></td>
+				<td style="text-align: center;"><?php echo $row['r_time'];?></td>
 				<td style="text-align: center;"><?php echo $row['First_name']." ".$row['Last_name'];?></td>
 				<td style="text-align: center;"><?php echo $row['Product_name'];?></td>
 				<td style="text-align: center;"><?php echo $row['No_of_person'];?></td>
 				<td style="text-align: center;"><?php echo "Php ".$row['Sub_total'].".00";?></td>
+				<td style="text-align: center;"><?php echo $row['cashier'];?></td>
 			</tr>
 				<?php } ?>
 		</table>

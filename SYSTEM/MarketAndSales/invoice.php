@@ -65,15 +65,19 @@
 			<table class="table table-striped table-hover">
 				<tr>
 			        <th style="text-align: center;"><h4>Name of Product</h4></th>
-			        <th style="text-align: center;"><h4>Amount</h4></th>
+			        <th style="text-align: center;"><h4>Price</h4></th>
 			        <th style="text-align: center;"><h4>Sub-total</h4></th>
-			        <th style="text-align: center;"><h4>No. of Person/s</h4></th>
+			        <th style="text-align: center;"><h4>Piece(s)</h4></th>
 			        <th style="text-align: center;"><h4>Action</h4></th>
 			    </tr>
 			    <tr>
 			        <?php
 			       	    $link = connection();
 			        	$query = "select * from temp_table";
+			        	$result1 = mysqli_query($link, "SELECT * FROM time_log ORDER BY t_ID desc limit 1") or die(mysqli_error($link));
+			        	while ($rowd = mysqli_fetch_array($result1)) {
+			        		$cash = $rowd['U_name'];
+			        	}
 			     	   	$result = mysqli_query($link,$query) or die(mysqli_error($link));
 				        $a = array();
 				    	$prod_name = array();
@@ -139,22 +143,11 @@
 	<form method="post" oninput="change.value = Math.round(amount.value) - Math.round(totalprice.value);">
 				  <div style=" width: 80%; margin-left: 10%;">
 		      			<label><h5>First name :</label>
-		        			<input type="text" name="fname" style="width: 50%"></h5>
+		        			<input type="text" name="fname" placeholder="Optional" style="width: 50%"></h5>
 		    			<label><h5>Last name :</label>
-		        			<input type="text" name="lname" style="width: 50%"></h5>
+		        			<input type="text" name="lname" placeholder="Optional" style="width: 50%"></h5>
 		    			<label><h5>Age :</label>
 		        			<input type="number" max="50" min="18" name="age"; style="margin-left: 10%"></h5>
-		        		<label><h5>Address :</label>
-		        			<input type="text" name="address" style="width: 50%"></h5>
-
-		    	      	<div>
-		      				<label><h5>Gender :</label><br>
-		      			  		&nbsp&nbsp&nbsp<input type="radio" name="gender" value="Male">&nbspMale<br>
-								&nbsp&nbsp&nbsp<input type="radio" name="gender" value="Female">&nbspFemale</h5>
-		   			  	</div>
-
-		   			  	<label><h5>Contact Number :</h5></label>
-		        			<input type="text" name="contactnum" style="width: 50%"></h5>
 
 		        	<hr>
 		        	<h4><label>Payment</label></h4>
@@ -180,11 +173,9 @@
 							$firstname=$_POST['fname'];
 							$lastname=$_POST['lname'];
 							$age=$_POST['age'];
-							$address=$_POST['address'];
-							$gender=$_POST['gender'];
-							$con_num=$_POST['contactnum'];
 						    date_default_timezone_set("Asia/Manila");
 						    $date = date("Y-m-d");
+    						$time = date("h:i:sa");
 
 						    foreach ($id12 as $rec => $value) 
 						    {
@@ -193,13 +184,13 @@
 						    	$temp_pprice = $prod_price[$rec];
 						    	$temp_pcode = $prod_code[$rec];
 						    	$temp_sub = $prod_subtotal[$rec];						    
-								$sql = "INSERT INTO recenttransaction (r_date,First_name,Last_name,Address,Gender,Age,Contact_Number,No_of_person,Product_name,Product_price,Product_code,Sub_total) VALUES ('$date','$firstname','$lastname','$address','$gender','$age','$con_num','$temp_person','$temp_pname','$temp_pprice','$temp_pcode','$temp_sub')";
+								$sql = "INSERT INTO recenttransaction (r_date, r_time, First_name,Last_name,Age,No_of_person,Product_name,Product_price,Product_code, cashier, Sub_total) VALUES ('$date', '$time', '$firstname','$lastname','$age','$temp_person','$temp_pname','$temp_pprice','$temp_pcode', '$cash', '$temp_sub')";
 								mysqli_query($connection,$sql);
 							}
 							
 							$sql1 = "DELETE FROM temp_table";
 							mysqli_query($connection,$sql1);
-							header("location:invoice.php");
+							header("location:staff.php");
 						}
 					
 
