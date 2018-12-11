@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Dec 04, 2018 at 08:03 AM
--- Server version: 10.1.26-MariaDB
--- PHP Version: 7.1.9
+-- Host: 127.0.0.1
+-- Generation Time: Dec 11, 2018 at 06:03 PM
+-- Server version: 10.1.31-MariaDB
+-- PHP Version: 7.2.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -41,10 +41,11 @@ CREATE TABLE `products_and_services` (
 --
 
 INSERT INTO `products_and_services` (`ID`, `Product_code`, `Services`, `Amount`, `No_of_person`) VALUES
-(25, 'Wine 001', 'Lambanog', 500, 1),
-(26, 'Wine 002', 'Banayad Whiskey', 850, 1),
-(27, 'Wine 003', 'Lambangag', 700, 1),
-(28, 'Wine 004', 'Black Horse', 900, 1);
+(25, 'Wine0001', 'Bugnay Wine', 1000, 1),
+(26, 'Wine0002', 'Lambanuga Wine', 1200, 1),
+(27, 'Wine0003', 'Wine Lyn', 900, 1),
+(28, 'Wine0004', 'Wine Shin', 1100, 1),
+(31, '', 'Wintot', 1500, 1);
 
 -- --------------------------------------------------------
 
@@ -55,16 +56,15 @@ INSERT INTO `products_and_services` (`ID`, `Product_code`, `Services`, `Amount`,
 CREATE TABLE `recenttransaction` (
   `id` int(11) NOT NULL,
   `r_date` date NOT NULL,
+  `r_time` varchar(255) NOT NULL,
   `First_name` varchar(255) NOT NULL,
   `Last_name` varchar(255) NOT NULL,
-  `Address` varchar(255) NOT NULL,
-  `Gender` varchar(255) NOT NULL,
   `Age` smallint(255) NOT NULL,
-  `Contact_Number` smallint(255) NOT NULL,
   `No_of_person` smallint(255) NOT NULL,
   `Product_name` text NOT NULL,
   `Product_price` smallint(255) NOT NULL,
   `Product_code` varchar(255) NOT NULL,
+  `cashier` varchar(255) NOT NULL,
   `Sub_total` smallint(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -72,15 +72,15 @@ CREATE TABLE `recenttransaction` (
 -- Dumping data for table `recenttransaction`
 --
 
-INSERT INTO `recenttransaction` (`id`, `r_date`, `First_name`, `Last_name`, `Address`, `Gender`, `Age`, `Contact_Number`, `No_of_person`, `Product_name`, `Product_price`, `Product_code`, `Sub_total`) VALUES
-(63, '2018-12-04', 'qwed', '123', 'wawa', 'Female', 21, 32767, 10, 'Lambanog', 500, 'Wine 001', 5000),
-(64, '2018-12-04', 'qwed', '123', 'wawa', 'Female', 21, 32767, 10, 'Banayad Whiskey', 850, 'Wine 002', 8500),
-(65, '2018-12-04', 'qwed', '123', 'wawa', 'Female', 21, 32767, 10, 'Lambangag', 700, 'Wine 003', 7000),
-(66, '2018-12-04', 'qwed', '123', 'wawa', 'Female', 21, 32767, 10, 'Black Horse', 900, 'Wine 004', 9000),
-(67, '2018-12-04', 'Paul', 'PAPAPa', 'zxxccxcxcx', 'Female', 18, 32767, 1, 'Lambanog', 500, 'Wine 001', 500),
-(68, '2018-12-04', 'Paul', 'PAPAPa', 'zxxccxcxcx', 'Female', 18, 32767, 1, 'Banayad Whiskey', 850, 'Wine 002', 850),
-(69, '2018-12-04', 'Paul', 'PAPAPa', 'zxxccxcxcx', 'Female', 18, 32767, 1, 'Lambangag', 700, 'Wine 003', 700),
-(70, '2018-12-04', 'Paul', 'PAPAPa', 'zxxccxcxcx', 'Female', 18, 32767, 1, 'Black Horse', 900, 'Wine 004', 900);
+INSERT INTO `recenttransaction` (`id`, `r_date`, `r_time`, `First_name`, `Last_name`, `Age`, `No_of_person`, `Product_name`, `Product_price`, `Product_code`, `cashier`, `Sub_total`) VALUES
+(63, '2018-11-29', '', 'Maond', 'Rasodf', 23, 1, 'Bugnay Wine', 1000, 'Wine0001', '', 1000),
+(72, '2018-12-11', '11:40:50pm', 'Loly', 'Pop', 19, 2, 'Wintot', 1500, '', 'Noel Cats', 3000),
+(73, '2018-12-11', '11:45:02pm', 'Nono', 'Opre', 0, 1, 'Bugnay Wine', 1000, 'Wine0001', 'Noel Cats', 1000),
+(74, '2018-12-11', '11:45:02pm', 'Nono', 'Opre', 0, 1, 'Wine Lyn', 900, 'Wine0003', 'Noel Cats', 900),
+(75, '2018-12-11', '11:45:02pm', 'Nono', 'Opre', 0, 1, 'Wintot', 1500, '', 'Noel Cats', 1500),
+(76, '2018-12-11', '11:53:50pm', 'Basha', 'Pops', 18, 1, 'Lambanuga Wine', 1200, 'Wine0002', 'Jam Mich', 1200),
+(77, '2018-12-11', '11:53:50pm', 'Basha', 'Pops', 18, 1, 'Bugnay Wine', 1000, 'Wine0001', 'Jam Mich', 1000),
+(78, '2018-12-11', '11:53:50pm', 'Basha', 'Pops', 18, 1, 'Wine Lyn', 900, 'Wine0003', 'Jam Mich', 900);
 
 -- --------------------------------------------------------
 
@@ -118,11 +118,25 @@ CREATE TABLE `time_log` (
 --
 
 INSERT INTO `time_log` (`t_ID`, `U_name`, `Position`, `Date_loggedin`, `Time_in`, `Time_out`) VALUES
-(130, 'Jamaica Tesbun', 'Admin', '2018-12-04', '02:57:20pm', ''),
-(131, 'Niela Pipi', 'Staff', '2018-12-04', '02:57:38pm', ''),
-(132, 'Jamaica Tesbun', 'Admin', '2018-12-04', '02:58:59pm', ''),
-(133, 'Niela Pipi', 'Staff', '2018-12-04', '03:00:16pm', ''),
-(134, 'Jamaica Tesbun', 'Admin', '2018-12-04', '03:01:04pm', '');
+(128, 'Noel Cats', 'Staff', '2018-11-29', '01:53:21am', ''),
+(129, 'Noel Cats', 'Staff', '2018-11-29', '01:57:46am', ''),
+(130, 'Paul Zapata', 'Admin', '2018-11-29', '01:59:45am', ''),
+(131, 'Paul Zapata', 'Admin', '2018-11-29', '02:01:57am', ''),
+(132, 'Noel Cats', 'Staff', '2018-11-29', '02:02:11am', ''),
+(133, 'Paul Zapata', 'Admin', '2018-11-29', '02:04:10am', ''),
+(134, 'Noel Cats', 'Staff', '2018-12-10', '11:27:41pm', ''),
+(135, 'Paul Zapata', 'Admin', '2018-12-11', '01:07:35am', ''),
+(136, 'Noel Cats', 'Staff', '2018-12-11', '02:21:50am', ''),
+(137, 'Paul Zapata', 'Admin', '2018-12-11', '02:25:28am', ''),
+(138, 'Noel Cats', 'Staff', '2018-12-11', '03:56:05am', ''),
+(139, 'Noel Cats', 'Staff', '2018-12-11', '04:07:57am', ''),
+(140, 'Noel Cats', 'Staff', '2018-12-11', '04:08:58am', ''),
+(141, 'Noel Cats', 'Staff', '2018-12-11', '04:09:41am', ''),
+(142, 'Noel Cats', 'Staff', '2018-12-11', '04:12:02am', ''),
+(143, 'Noel Cats', 'Staff', '2018-12-11', '04:12:46am', ''),
+(144, 'Noel Cats', 'Staff', '2018-12-11', '10:16:29pm', ''),
+(145, 'Paul Zapata', 'Admin', '2018-12-11', '11:52:56pm', ''),
+(146, 'Jam Mich', 'Staff', '2018-12-11', '11:53:24pm', '');
 
 -- --------------------------------------------------------
 
@@ -148,8 +162,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`ID`, `First_name`, `Last_name`, `Age`, `Gender`, `Position`, `Username`, `Password`, `year`, `grad`) VALUES
-(3, 'Jamaica', 'Tesbun', 20, 'Female', 'Admin', 'Jamaica', 'Tesbun', '', ''),
-(4, 'Niela', 'Pipi', 20, 'Male', 'Staff', 'Niela', 'Pipi', '', '');
+(1, 'Paul', 'Zapata', 25, 'Male', 'Admin', 'Paul', 'Zapata', '', ''),
+(2, 'Noel', 'Cats', 23, 'Male', 'Staff', 'Noel', 'Cats', '', ''),
+(3, 'Jam', 'Mich', 18, 'Male', 'Staff', 'Jam', 'Mich', '', '');
 
 --
 -- Indexes for dumped tables
@@ -193,31 +208,31 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `products_and_services`
 --
 ALTER TABLE `products_and_services`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `recenttransaction`
 --
 ALTER TABLE `recenttransaction`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
 
 --
 -- AUTO_INCREMENT for table `temp_table`
 --
 ALTER TABLE `temp_table`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `time_log`
 --
 ALTER TABLE `time_log`
-  MODIFY `t_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=135;
+  MODIFY `t_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=147;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
